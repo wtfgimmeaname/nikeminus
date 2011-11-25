@@ -1,12 +1,10 @@
 module NikeMinus
   class User
+    VALID_ID = %r{^[0-9]+$}
 
-    def valid_id?(user_id)
-      haystack = %r{^[0-9]+$}
-      user_id.match(haystack) ?: nil
-    end
-
-    def get_user_id
+    def self.valid_id?(uid)
+      uid = uid.to_s if uid.is_a? Fixnum
+      (uid =~ VALID_DI) ? true : false
     end
 
   end

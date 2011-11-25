@@ -1,14 +1,22 @@
 module NikeMinus
-  class Xml
+  class XML
     URL      = "http://nikerunning.nike.com"
     FILEPATH = "/nikeplus/v1/services/widget/get_public_run_list.jsp"
     URLPARAM = "?userID="
     FULLPATH = [URL, FILEPATH, URLPARAM].join("")
 
-    def generate_xml(nike_id)
-      url    = FULLPATH+nike_id
+    def uid=(uid)
+      @uid = uid
+    end
+
+    def save!
+      return false if @uid.nil
+    end
+
+    def xmldoc
+      url    = FULLPATH+uid
       xml  ||= Curl::Easy.perform(url).body_str rescue nil
-      xmldoc = Nokogiri::XML(xml)
+      @xmldoc = Nokogiri::XML(xml)
     end
 
     def valid_xml?(xmldoc)
@@ -16,8 +24,5 @@ module NikeMinus
       return false if status.include?("failure") || status.empty?
     end
 
-    def save_xml(xml)
-      if valid_xml?(xml)
-    end
   end
 end

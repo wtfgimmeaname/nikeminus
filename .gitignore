@@ -1,0 +1,4 @@
+.DS_Storage
+*.s?p
+tmp/*
+log/*
