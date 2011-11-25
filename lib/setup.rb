@@ -29,8 +29,9 @@ class FetchNikeXml
     puts "\nDocument returned with status -- #{status.upcase} --"
     if status.include? "failure"
       error_msg = xml_doc.xpath("//plusService//serviceException").text
-      return puts " -- Error: #{error_msg} --\n"
-    end
+      puts " -- Error: #{error_msg} --\n"
+    else
+    
   end
 
   def get_nike_xml(nike_id)
@@ -64,5 +65,5 @@ class FetchNikeXml
   end
 end
 
-nf = FetchNikeXml.new
-nf.assistant
+#nf = FetchNikeXml.new
+#nf.assistant
