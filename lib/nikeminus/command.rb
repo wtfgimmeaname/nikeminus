@@ -2,6 +2,10 @@ module NikeMinus
   class Command
     class << self
 
+      def storage
+        NikeMinus.storage
+      end
+
       def execute(*args)
         command = args[0]
         option  = args[1]
@@ -15,14 +19,7 @@ module NikeMinus
       end
 
       def init(user_id)
-        return help unless User.valid_id?(user_id)
-
-        data = Data.new
-        data.uid=(user_id)
-        data.build_xml
-        if data.xml_valid?
-          data.save_json
-        end
+        storage.setup(user_id)
       end
 
       def status

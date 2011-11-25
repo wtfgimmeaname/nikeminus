@@ -1,13 +1,13 @@
 require 'rubygems'
-require 'curl'
+require 'fileutils'
 require 'json'
+require 'curl'
 require 'nokogiri'
 require 'yajl'
 
 $:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
 
 require 'nikeminus/data'
-require 'nikeminus/user'
 require 'nikeminus/storage'
 require 'nikeminus/command'
 
