@@ -14,6 +14,11 @@ module NikeMinus
       data = File.open(json_file, 'r')
     end
 
+    def data_exists?
+      return false unless File.exists?(json_file)
+      data = File.open(json_file, "r").read
+    end
+
     def bootstrap_json
       FileUtils.touch json_file
       save!

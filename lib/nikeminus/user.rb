@@ -4,7 +4,7 @@ module NikeMinus
 
     def self.valid_id?(uid)
       uid = uid.to_s if uid.is_a? Fixnum
-      (uid =~ VALID_DI) ? true : false
+      (uid =~ VALID_ID) ? true : false
     end
 
   end
