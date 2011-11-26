@@ -26,25 +26,52 @@ module NikeMinus
 
       def delegate(command, option)
         return init(option) if command == 'init'
+        return update       if command == 'update'
+        return destroy      if command == 'delete'
       end
 
       def init(user_id)
-        storage.setup(user_id)
-        show_errors
+        json = storage.setup(user_id)
+        return show_errors if errors.any?
+        msg "Nike- data setup successful."
+      end
+
+      def update
+        storage.setup(storage.nike_id)
+        msg "Updated Nike- run data."
+      end
+
+      def destroy
+        storage.destroy!
+        msg "Your Nike- app has been deleted."
       end
 
       def status
-        # return setup info
-        # name
-        # user id info
-        # last updated xml
+        nike_id     = storage.nike_id
+        last_update = storage
+        run_count   = storage.run_count
+        config_file = storage.json_file
       end
 
       def help
         help_text = %{
-          - Nike- help  -----------------------------------------
+          --------------------------------------------------------------------
+          Nike- help
 
-          nikeminus init <user_id>          setup your nike-
+          nikeminus init <user_id>               Setup your Nike- profile
+          nikeminus launch
+
+          nikeminus update                       Update your Nike running data
+          nikeminus status                       Show status message (User id, last data update)
+          nikeminus delete                       Delete Nike- config file
+
+          nikeminus data xml                     See your data in xml format
+          nikeminus data json                    See your data in json format
+
+          For information on Nike- and how to find your Nike user_id visit:
+          https://github.com/dustinweatherford/nikeminus
+
+          --------------------------------------------------------------------
         }.gsub(/^ {10}/, '')
         msg help_text
       end

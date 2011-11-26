@@ -6,8 +6,6 @@ module NikeMinus
     FULLPATH = [URL, FILEPATH, URLPARAM].join("")
     VALID_ID = %r{^[0-9]+$}
 
-    attr_accessor :xml
-
     def errors
       NikeMinus.errors
     end
@@ -56,7 +54,7 @@ module NikeMinus
           :run_data    => run_data
         }
       end
-      builder.to_json
+      builder
     end
 
   end
