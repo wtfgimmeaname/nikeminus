@@ -6,6 +6,16 @@ module NikeMinus
         NikeMinus.storage
       end
 
+      def errors
+        NikeMinus.errors
+      end
+
+      def show_errors
+        errors.each do |k, v|
+          msg("Error: #{k}")
+        end
+      end
+
       def execute(*args)
         command = args[0]
         option  = args[1]
@@ -20,6 +30,7 @@ module NikeMinus
 
       def init(user_id)
         storage.setup(user_id)
+        show_errors
       end
 
       def status

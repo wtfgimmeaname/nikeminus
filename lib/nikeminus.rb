@@ -17,4 +17,8 @@ module NikeMinus
   def self.storage
     @storage ||= NikeMinus::Storage.new
   end
+
+  def self.errors
+    @errors ||= []
+  end
 end
