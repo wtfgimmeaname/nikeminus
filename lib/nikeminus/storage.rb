@@ -52,7 +52,11 @@ module NikeMinus
     end
 
     def to_hash
-      { :nike_id => @nike_id, :json_data => @json_data }
+      {
+        :nike_id => @nike_id,
+        :json_data => @json_data,
+        :timestamp => Time.now
+      }
     end
 
     def to_json
