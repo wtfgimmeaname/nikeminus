@@ -1,15 +1,16 @@
 module NikeMinus
   class Storage
-    JSON_FILE = "#{ENV['HOME']}/.nikeminus"
+    JSON_FILE = "#{APP_ROOT}/public/js/nikeminus.json"
+    JSON_OBJECT_VAR = "var nikedata = "
 
     attr_reader :filedata
 
-    def initialize
-      @filedata = read_file
-    end
-
     def json_file
       JSON_FILE
+    end
+
+    def initialize
+      @filedata = read!
     end
 
     def nike_id
@@ -33,22 +34,24 @@ module NikeMinus
       save!
     end
 
-    def read_file
+    def read!
       file_init unless File.exists?(json_file)
-      Yajl::Parser.new.parse(File.new(json_file, 'r'))
+      file = File.new(json_file, "r").read
+      Yajl::Parser.new.parse(file.gsub(JSON_OBJECT_VAR, ""))
+    end
+
+    def save!
+      data = JSON_OBJECT_VAR+to_json
+      File.open(json_file, "w") {|f| f.write(data)}
+    end
+
+    def destroy!
+      File.delete(json_file)
     end
 
     def file_init
       FileUtils.touch json_file
       save!
-    end
-
-    def save!
-      File.open(json_file, "w") {|f| f.write(to_json)}
-    end
-
-    def destroy!
-      File.delete(json_file)
     end
 
     def to_hash

@@ -26,8 +26,9 @@ module NikeMinus
 
       def delegate(command, option)
         return init(option) if command == 'init'
-        return update       if command == 'update'
-        return destroy      if command == 'delete'
+
+        argless_cmds = %w[update delete launch]
+        send(command) if argless_cmds.include? command
       end
 
       def init(user_id)
@@ -44,6 +45,10 @@ module NikeMinus
       def destroy
         storage.destroy!
         msg "Your Nike- app has been deleted."
+      end
+
+      def launch
+        `open ~/Sites/nikeminus/public/index.html`
       end
 
       def status
