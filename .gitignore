@@ -1,4 +1,4 @@
-.DS_Storage
+.DS_Store
 *.s?p
 tmp/*
 log/*

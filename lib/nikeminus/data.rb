@@ -1,9 +1,10 @@
 module NikeMinus
   class Data
-    URL      = "http://nikerunning.nike.com"
-    FILEPATH = "/nikeplus/v1/services/widget/get_public_run_list.jsp"
-    URLPARAM = "?userID="
-    FULLPATH = [URL, FILEPATH, URLPARAM].join("")
+    URL         = "http://nikerunning.nike.com/nikeplus/v1/services"
+    SUMMARYFILE = "/widget/get_public_run_list.jsp?userID="
+    RUNFILE     = "/app/get_run.jsp?id="
+    FULLSUMMARYPATH = [URL, SUMMARYFILE].join("")
+    FULLRUNPATH = [URL, RUNFILE].join("")
     VALID_ID = %r{^[0-9]+$}
 
     def errors
@@ -29,7 +30,7 @@ module NikeMinus
     end
 
     def set_xml(uid)
-      data = Curl::Easy.perform(FULLPATH+uid.to_s).body_str rescue nil
+      data = Curl::Easy.perform(FULLSUMMARYPATH+uid.to_s).body_str rescue nil
       @xml = Nokogiri::XML(data)
     end
 

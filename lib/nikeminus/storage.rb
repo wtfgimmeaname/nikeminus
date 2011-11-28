@@ -1,7 +1,7 @@
 module NikeMinus
   class Storage
     JSON_FILE = "#{APP_ROOT}/public/js/nikeminus.json"
-    JSON_OBJECT_VAR = "var nikedata = "
+    JSON_OBJECT_VAR = "var NikeData = "
 
     attr_reader :filedata
 

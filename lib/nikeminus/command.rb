@@ -29,6 +29,7 @@ module NikeMinus
 
         argless_cmds = %w[update delete launch]
         send(command) if argless_cmds.include? command
+        help
       end
 
       def init(user_id)
@@ -42,7 +43,7 @@ module NikeMinus
         msg "Updated Nike- run data."
       end
 
-      def destroy
+      def delete
         storage.destroy!
         msg "Your Nike- app has been deleted."
       end
@@ -54,7 +55,6 @@ module NikeMinus
       def status
         nike_id     = storage.nike_id
         last_update = storage
-        run_count   = storage.run_count
         config_file = storage.json_file
       end
 

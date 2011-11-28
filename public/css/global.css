@@ -1,7 +1,56 @@
 /* Imports */
 @import url("reset.css");
+@import url("fonts.css");
 
+/* font fibonacci 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89 */
+html {
+  font: normal 13px "Kudos", "Helvetica", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
 .wrapper {
   width: 900px;
-  margin: 40px auto;
+  margin: 5px auto;
+}
+header,
+section {
+  float: left;
+  width: 100%;
+}
+.logo {
+  display: block;
+  float: right;
+  width: 134px;
+  height: 95px;
+  background: transparent url(../img/minus_logo.jpg) no-repeat left top;
+  text-indent: -5000px;
+}
+article {
+  float: left;
+  width: 130px;
+  height: 130px;
+  padding: 10px;
+  border: 2px solid #6e0804;
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#bd1805), to(#910c05));
+  background: -moz-linear-gradient(top,  #bd1805,  #910c05);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bd1805', endColorstr='#910c05');
+  box-shadow: 3px 3px 4px #e5e5e5;
+  -moz-box-shadow: 3px 3px 4px #e5e5e5;
+  -webkit-box-shadow: 3px 3px 4px #e5e5e5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#e5e5e5')";
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#e5e5e5');
+  position: relative;
+}
+.run_id {
+  position: absolute;
+  top: -14px;
+  right: -4px;
+  font: bold 21px "KudosBold", 'Helvetica', sans-serif;
+  color: #fff;
+  vertical-align: top;
+}
+.run_id span {
+  font-size: 32px; 
 }
