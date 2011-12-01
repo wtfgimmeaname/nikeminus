@@ -29,7 +29,6 @@ module NikeMinus
 
         argless_cmds = %w[update delete launch]
         send(command) if argless_cmds.include? command
-        help
       end
 
       def init(user_id)

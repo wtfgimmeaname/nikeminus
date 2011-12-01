@@ -1,6 +1,6 @@
 module NikeMinus
   class Storage
-    JSON_FILE = "#{APP_ROOT}/public/js/nikeminus.json"
+    JSON_FILE = ENV['HOME']+'/.nikeminus'
     JSON_OBJECT_VAR = "var NikeData = "
 
     attr_reader :filedata
@@ -21,13 +21,17 @@ module NikeMinus
       @nike_id || @filedata["json_data"]
     end
 
+    def json_data
+      @nike_id || @filedata["timestamp"]
+    end
+
     def errors
       NikeMinus.errors
     end
 
     def setup(nike_id)
       data = Data.new
-      return errors unless data.valid_id?(nike_id)
+      return errors unless data.valid_nike_id?(nike_id)
 
       @nike_id   = nike_id
       @json_data = data.build_json

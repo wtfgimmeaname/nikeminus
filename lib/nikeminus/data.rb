@@ -1,5 +1,11 @@
 module NikeMinus
   class Data
+    # Demo IDs:
+    # - Mine : 32034286
+    # - Public : 417671841
+    # - Not Public : 1709765374
+    # - Not Valid : 42452
+
     URL         = "http://nikerunning.nike.com/nikeplus/v1/services"
     SUMMARYFILE = "/widget/get_public_run_list.jsp?userID="
     RUNFILE     = "/app/get_run.jsp?id="
@@ -11,30 +17,22 @@ module NikeMinus
       NikeMinus.errors
     end
 
-    def valid_id?(uid)
-      unless valid_id_string?(uid)
+    def valid_nike_id?(nike_id)
+      @uid = nike_id
+      return false unless valid_id? && valid_xml?
+    end
+
+    def valid_id?
+      if (VALID_ID =~ @uid.to_s).nil?
         errors << "Invalid ID number"
         return false
-      end 
-      set_xml(uid)
-      valid_xml?
-    end
-
-    def valid_id_string?(uid)
-      uid = uid.to_s if uid.is_a? Fixnum
-      (uid =~ VALID_ID) ? true : false
-    end
-
-    def build_json
-      xml_to_json(@xml) if valid_xml?
-    end
-
-    def set_xml(uid)
-      data = Curl::Easy.perform(FULLSUMMARYPATH+uid.to_s).body_str rescue nil
-      @xml = Nokogiri::XML(data)
+      else
+        return true
+      end
     end
 
     def valid_xml?
+      set_xml if @uid 
       status = @xml.xpath("//plusService//status").text
       if status.include?("failure") || status.empty?
         errors << @xml.xpath("//plusService//serviceException").text
@@ -42,6 +40,15 @@ module NikeMinus
       else
         return true
       end
+    end
+
+    def set_xml
+      data = Curl::Easy.perform(FULLSUMMARYPATH+@uid.to_s).body_str rescue nil
+      @xml = Nokogiri::XML(data)
+    end
+
+    def build_json
+      xml_to_json(@xml) if valid_xml?
     end
 
     def xml_to_json(xml)
